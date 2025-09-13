@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PRIVACY.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h3 id="privacy-policy-for-martial-arts-database-%22madb%22"><strong>Privacy Policy for Martial Arts Database (&quot;MADB&quot;)</strong></h3>
+<p><strong>Last Updated: [2025-08-12]</strong></p>
+<p><strong>1. Introduction</strong>
+Welcome to Martial Arts Database (&quot;MADB,&quot; &quot;we,&quot; &quot;our,&quot; &quot;us&quot;). Our service helps individuals find martial arts schools and instructors and helps those schools connect with students.</p>
+<p>This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our website [https://madb.castoware.com] and services (the &quot;Service&quot;).</p>
+<p>By using our Service, you consent to the practices described in this policy.</p>
+<p><strong>2. Information We Collect</strong></p>
+<p><strong>A. Information You Provide Directly:</strong></p>
+<ul>
+<li><strong>Account Information:</strong> When you register, we collect your name, email address, and a hashed version of your password.</li>
+<li><strong>Provider Profile Information:</strong> If you register as a school/instructor (&quot;Provider&quot;), we collect information you provide for your public profile, such as:
+<ul>
+<li>Business name, biography, and years of experience.</li>
+<li>Business contact information: address, phone number, email, and website.</li>
+<li><strong>You have granular control over the public visibility of your address, phone number, and email within your account settings.</strong></li>
+</ul>
+</li>
+<li><strong>Reviews and Content:</strong> When you leave a review, we store the content of your review and your rating.</li>
+<li><strong>Communications:</strong> If you contact us directly or use our contact form to message a Provider, we collect the contents of that message.</li>
+</ul>
+<p><strong>B. Information Collected Automatically:</strong></p>
+<ul>
+<li><strong>Usage Data:</strong> We collect information about your interactions with the Service, such as the pages you visit and your search queries.</li>
+<li><strong>Device Data:</strong> We may collect information about the device you use, including your IP address, browser type, and operating system.</li>
+<li><strong>Location Data:</strong> We derive approximate location (city, region, country) from your IP address for analytics. Precise location is only processed if you provide it for a search.</li>
+</ul>
+<p><strong>C. Information from Third Parties:</strong></p>
+<ul>
+<li><strong>Google Geocoding API:</strong> When a Provider submits an address, we send it to Google to obtain precise geographic coordinates (latitude/longitude). We store the standardized address and coordinates but do not store the raw API response.</li>
+<li><strong>Payment Processor:</strong> We use PayPal to process payments. We receive information about your subscription status and transaction ID, but we do not store your full payment details on our servers.</li>
+</ul>
+<p><strong>3. How We Use Your Information</strong>
+We use the information we collect to:</p>
+<ul>
+<li>Provide, maintain, and improve the Service (e.g., displaying search results, calculating distances).</li>
+<li>Process your registration and manage your account.</li>
+<li>Process payments and manage your subscription.</li>
+<li>Facilitate communication between users and Providers via our internal contact form.</li>
+<li>Understand and analyze how our Service is used.</li>
+<li>Communicate with you about products, services, offers, and events.</li>
+</ul>
+<p><strong>4. Legal Basis for Processing (GDPR)</strong>
+We process your personal data on the following legal bases:</p>
+<ul>
+<li><strong>Performance of a Contract:</strong> To provide the Service you request (e.g., creating your account, managing your subscription).</li>
+<li><strong>Legitimate Interests:</strong> For our operational purposes, such as analytics, security, and fraud prevention.</li>
+<li><strong>Consent:</strong> For certain non-essential communications. You can withdraw consent at any time.</li>
+</ul>
+<p><strong>5. How We Share Your Information</strong></p>
+<ul>
+<li><strong>With Other Users:</strong> Your public Provider profile information (subject to your visibility settings) and reviews are visible to all users of the Service.</li>
+<li><strong>With Vendors and Service Providers:</strong> We share data with trusted third parties that provide services on our behalf, such as:
+<ul>
+<li><strong>Google LLC,</strong> for geocoding services (<a href="https://policies.google.com/privacy">Google Privacy Policy</a>).</li>
+<li><strong>PayPal Inc.,</strong> for payment processing (<a href="https://www.paypal.com/us/webapps/mpp/ua/privacy-full">PayPal Privacy Policy</a>).</li>
+<li><strong>Hosting providers</strong> and analytics services.</li>
+</ul>
+</li>
+<li><strong>As Required by Law:</strong> We may disclose information if we believe it is necessary to comply with a legal obligation or protect our rights.</li>
+</ul>
+<p><strong>6. Your Choices and Rights</strong>
+You have control over your information:</p>
+<ul>
+<li><strong>Access and Portability:</strong> You can request a copy of the personal data we hold about you.</li>
+<li><strong>Correction:</strong> You can update your account and profile information at any time from your account settings.</li>
+<li><strong>Deletion:</strong> You have the right to request the deletion of your personal data.
+<ul>
+<li><strong>Process:</strong> To submit a deletion request, please contact us at [Your Contact Email for Privacy Requests].</li>
+<li><strong>Scope:</strong> Please specify if you wish to:
+<ul>
+<li><strong>Option A: Delete your account and all personal data, including your public Provider listing.</strong></li>
+<li><strong>Option B: Delete your account and personal data but allow your public Provider listing to remain on the Service as an &quot;unclaimed&quot; profile.</strong></li>
+</ul>
+</li>
+<li>We will anonymize any reviews you have written by removing the link to your user account.</li>
+</ul>
+</li>
+<li><strong>Objection:</strong> You can object to our processing of your personal data.</li>
+<li><strong>Marketing Communications:</strong> You can opt-out of marketing emails by using the unsubscribe link provided.</li>
+</ul>
+<p><strong>7. Data Retention</strong>
+We retain your personal information only for as long as is necessary to provide you with the Service and fulfill the purposes described in this policy. We will also retain and use your information to comply with our legal obligations, resolve disputes, and enforce our agreements.</p>
+<p><strong>8. Children's Privacy</strong>
+Our Service is not directed to children under the age of 16. We do not knowingly collect personal information from children. If you become aware that a child has provided us with personal information, please contact us.</p>
+<p><strong>9. Security</strong>
+We implement appropriate technical and organizational measures to protect your personal information. However, no method of transmission over the Internet or electronic storage is 100% secure.</p>
+<p><strong>10. International Transfers</strong>
+Your information may be transferred to and processed in countries other than your own. We ensure these transfers comply with applicable data protection laws through mechanisms like Standard Contractual Clauses.</p>
+<p><strong>11. Changes to This Policy</strong>
+We may update this policy from time to time. The updated version will be indicated by a new &quot;Last Updated&quot; date.</p>
+<p><strong>12. Contact Us</strong>
+If you have any questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact us at:
+madb-privacy@castoware.com</p>
+<p>We will respond to all legitimate inquiries within the timeframe required by applicable law.</p>
+
+</body>
+</html>
