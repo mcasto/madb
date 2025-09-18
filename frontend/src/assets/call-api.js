@@ -2,13 +2,7 @@ import { useStore } from "src/stores/store";
 import { Notify } from "quasar";
 import wretch from "wretch";
 
-export default ({
-  path,
-  method,
-  payload,
-  useAuth = false,
-  showError = true,
-}) => {
+export default async ({ path, method, payload, useAuth = false }) => {
   const store = useStore();
 
   // Initialize the base request
@@ -34,5 +28,13 @@ export default ({
   }
 
   // Execute the request
-  return request[method]().json();
+  // return request[method]().json();
+
+  const response = await request[method]();
+
+  return response
+    .error(422, (error) => {
+      return error.json;
+    })
+    .json();
 };

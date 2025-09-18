@@ -13,6 +13,16 @@
         >
           <q-input
             type="text"
+            label="Name"
+            dense
+            outlined
+            v-model="form.name"
+            :error="errors.name.active"
+            :error-message="errors.name.message"
+            @update:model-value="resetErrors"
+          ></q-input>
+          <q-input
+            type="email"
             label="Email"
             dense
             outlined
@@ -43,9 +53,7 @@
             label="Confirm Password"
             dense
             outlined
-            v-model="confirmPassword"
-            :error="errors.confirm.active"
-            :error-message="errors.confirm.message"
+            v-model="form.password_confirmation"
             @update:model-value="resetErrors"
           ></q-input>
         </q-card-section>
@@ -59,15 +67,25 @@
 </template>
 
 <script setup>
-import { Screen } from "quasar";
+import { Loading, Notify, Screen } from "quasar";
+import callApi from "src/assets/call-api";
+import { useStore } from "src/stores/store";
 import { ref } from "vue";
 
+const store = useStore();
+
 const form = ref({
+  name: null,
   email: null,
   password: null,
+  password_confirmation: null,
 });
 
 const errors = ref({
+  name: {
+    active: false,
+    message: "",
+  },
   email: {
     active: false,
     message: "",
@@ -76,17 +94,16 @@ const errors = ref({
     active: false,
     message: "",
   },
-  confirm: {
-    active: false,
-    message: "",
-  },
 });
 
 const showPass = ref(false);
-const confirmPassword = ref(null);
 
 const resetErrors = () => {
   errors.value = {
+    name: {
+      active: false,
+      message: "",
+    },
     email: {
       active: false,
       message: "",
@@ -95,51 +112,43 @@ const resetErrors = () => {
       active: false,
       message: "",
     },
-    confirm: {
-      active: false,
-      message: "",
-    },
   };
 };
 
-const registerProvider = () => {
-  console.log({
-    register: {
-      email: !!form.value.email,
-      password: !!form.value.password,
-      confirm: !!confirmPassword.value,
-    },
+const registerProvider = async () => {
+  Loading.show({ delay: 300 });
+
+  const response = await callApi({
+    path: "/providers/register",
+    method: "post",
+    payload: { ...form.value, type: "provider" },
   });
 
-  errors.value.email.active = !!!form.value.email;
-  if (!!!form.value.email) {
-    errors.value.email.message = "Email Required";
-    return;
-  }
+  if (response.errors) {
+    Loading.hide();
 
-  errors.value.password.active = !!!form.value.password;
-  if (!!!form.value.password) {
-    errors.value.password.message = "Password Required";
-    return;
-  }
+    errors.value = {
+      name: {
+        active: !!response.errors.name,
+        message: response.errors.name?.[0],
+      },
 
-  errors.value.confirm.active = !!!confirmPassword.value;
-  if (!!!confirmPassword.value) {
-    errors.value.confirm.message = "Password Confirmation Required";
-    return;
-  }
-
-  if (form.value.password != confirmPassword.value) {
-    errors.value.password = {
-      active: true,
-      message: "Password and Confirmation must match",
+      email: {
+        active: !!response.errors.email,
+        message: response.errors.email?.[0],
+      },
+      password: {
+        active: !!response.errors.password,
+        message: response.errors.password?.[0],
+      },
     };
 
-    errors.value.confirm = {
-      active: true,
-      message: "Password and Confirmation must match",
-    };
     return;
   }
+
+  // mc-todo: redirect to a confirmation page (they'll receive confirmation email)
+  Notify.create({ type: "positive", message: "Done" });
+
+  Loading.hide();
 };
 </script>
