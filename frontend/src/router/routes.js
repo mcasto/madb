@@ -15,6 +15,10 @@ const routes = [
     component: () => import("pages/PartnerRegister.vue"),
   },
   {
+    path: "/verify-email",
+    component: () => import("pages/VerifyEmail.vue"),
+  },
+  {
     path: "/partner-portal",
     component: () => import("layouts/PartnerLayout.vue"),
     beforeEnter: (to, from, next) => {

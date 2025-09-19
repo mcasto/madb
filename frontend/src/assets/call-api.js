@@ -36,5 +36,11 @@ export default async ({ path, method, payload, useAuth = false }) => {
     .error(422, (error) => {
       return error.json;
     })
+    .error(404, (error) => {
+      return { ...error, error: true };
+    })
+    .error(403, (error) => {
+      return { ...error, error: true };
+    })
     .json();
 };

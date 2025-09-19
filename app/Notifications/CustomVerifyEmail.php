@@ -28,11 +28,9 @@ class CustomVerifyEmail extends Notification
         $frontendUrl = config('services.frontend.url');
         $path = config('services.frontend.email_verify_path');
 
-        $verificationToken = encrypt([
-            'id' => $notifiable->getKey(),
-            'hash' => sha1($notifiable->getEmailForVerification()),
-        ]);
+        $id = $notifiable->getKey();
+        $hash = sha1($notifiable->getEmailForVerification());
 
-        return $frontendUrl . $path . '?token=' . urlencode($verificationToken);
+        return $frontendUrl . $path . "?id={$id}&hash={$hash}";
     }
 }
