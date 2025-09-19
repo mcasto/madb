@@ -40,6 +40,9 @@ return [
             'api_key' => env('GOOGLE_API_KEY'),
             'url_template' => 'https://maps.googleapis.com/maps/api/geocode/json?address={address}&key={key}'
         ]
-    ]
-
+    ],
+    'frontend' => [
+        'url' => env('FRONTEND_URL', 'http://localhost:9000'),
+        'email_verify_path' => env('FRONTEND_EMAIL_VERIFY_PATH', '/verify-email'),
+    ],
 ];

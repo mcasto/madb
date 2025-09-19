@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\EmailVerification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use Illuminate\Auth\Events\Registered;
 
 class ProvidersController extends Controller
 {
@@ -24,11 +25,12 @@ class ProvidersController extends Controller
             ], 422);
         }
 
-        User::create($validator->validated());
+        $rec = $validator->validated();
 
-        // mc-todo: send an email to user to verify their email
+        $user = User::create($rec);
 
+        event(new Registered($user));
 
-        return true;
+        return $user;
     }
 }

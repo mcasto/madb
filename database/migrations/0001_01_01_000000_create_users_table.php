@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('type', ['seek', 'provider', 'admin'])->default('seek'); // Critical field
             $table->rememberToken();
+            $table->string('verification_token')->nullable();
             $table->timestamps();
         });
 
