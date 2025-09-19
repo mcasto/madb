@@ -38,27 +38,29 @@ const status = ref("verifying");
 const errorMessage = ref("");
 
 onMounted(async () => {
-  const { id, hash } = route.query;
+  setTimeout(async () => {
+    const { id, hash } = route.query;
 
-  if (!id || !hash) {
-    status.value = "error";
-    errorMessage.value = "Invalid verification link";
-    return;
-  }
+    if (!id || !hash) {
+      status.value = "error";
+      errorMessage.value = "Invalid verification link";
+      return;
+    }
 
-  const response = await callApi({
-    path: `/email/verify/${id}/${hash}`,
-    method: "get",
-  });
+    const response = await callApi({
+      path: `/email/verify/${id}/${hash}`,
+      method: "get",
+    });
 
-  const type = response.error ? "negative" : "positive";
-  Notify.create({
-    type,
-    message: response.message,
-  });
+    const type = response.error ? "negative" : "positive";
+    Notify.create({
+      type,
+      message: response.message,
+    });
 
-  if (!response.error) {
-    router.push("/partner-portal/login");
-  }
+    if (!response.error) {
+      router.push("/partner-portal/login");
+    }
+  }, 800);
 });
 </script>

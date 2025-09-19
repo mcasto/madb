@@ -146,8 +146,8 @@ const registerProvider = async () => {
     return;
   }
 
-  // mc-todo: redirect to a confirmation page (they'll receive confirmation email)
-  Notify.create({ type: "positive", message: "Done" });
+  store.partner = { ...store.partner, user: response };
+  store.router.push("/partner-portal/registration-confirmation");
 
   Loading.hide();
 };
